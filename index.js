@@ -68,7 +68,7 @@ function strategy(callback) {
   //   Strategies in Passport require a `verify` function, which accept
   //   credentials (in this case, an accessToken, refreshToken, and google
   //   profile), and invoke a callback with a user object.
-  callback(null, new GoogleStrategy({
+  return callback(null, new GoogleStrategy({
     clientID: config.clientID,
     clientSecret: config.clientSecret,
     callbackURL: "http://localhost:8888/auth/google/callback",
@@ -202,7 +202,7 @@ function routes(options, callback) {
       // Successful authentication, redirect home.
       res.redirect('/');
     });
-  callback(null);
+  return callback(null);
 }
 google.method('routes', routes, {
   description: 'sets routes for google in app'
