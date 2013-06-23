@@ -49,12 +49,21 @@ google.method('start', start, {
   description: "starts google"
 });
 
-google.property('accessToken', {
-  description: 'access token of google auth'
-});
-
-google.property('refreshToken', {
-  description: 'access token of google auth'
+google.property('credentials', {
+  description: 'google credentials',
+  type: 'object',
+  properties: {
+    accessToken: {
+      description: 'access token of google auth',
+      type: 'string',
+      required: true
+    },
+    refreshToken: {
+      description: 'refresh token of google auth',
+      type: 'string',
+      required: false
+    }
+  }
 });
 
 google.property('profile', {
@@ -87,8 +96,10 @@ function strategy(callback) {
                 logger.info("profile.id not found. creating new google");
                 google.create({
                   id: profile.id,
-                  accessToken: accessToken,
-                  refreshToken: refreshToken,
+                  credentials: {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken
+                  },
                   profile: profile
                 }, function(err, _google) {
                   if (err) { return callback(err); }
@@ -102,8 +113,10 @@ function strategy(callback) {
                 logger.info("profile.id found, updating google info");
                 google.update({
                   id: profile.id,
-                  accessToken: accessToken,
-                  refreshToken: refreshToken,
+                  credentials: {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken
+                  },
                   profile: profile
                 }, function(err, _google) {
                   if (err) { return callback(err); }
@@ -148,8 +161,10 @@ function strategy(callback) {
             logger.info("profile.id not found. creating new google");
             google.create({
               id: profile.id,
-              accessToken: accessToken,
-              refreshToken: refreshToken,
+              credentials: {
+                accessToken: accessToken,
+                refreshToken: refreshToken
+              },
               profile: profile
             }, function(err, _google) {
               if (err) { return done(err); }
