@@ -118,7 +118,7 @@ function strategy(callback) {
         // log google object
         function(_google, callback) {
           logger.info("google object", JSON.stringify(_google));
-          callback(null, _google);
+          return callback(null, _google);
         },
         // associate google with user auth
         function(_google, callback) {
@@ -159,7 +159,7 @@ function strategy(callback) {
                     return callback(err);
                   } else {
                     logger.info("user id ", _user.id, "found");
-                    callback(null, _user);
+                    return callback(null, _user);
                   }
                 });
               }],
