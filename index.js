@@ -1,7 +1,7 @@
 var resource = require('resource'),
     logger = resource.logger,
     http = resource.use('http'),
-    config = resource.use('config')['auth-google-oauth'],
+    config = resource.use('config'),
     auth = resource.use('auth'),
     user = resource.use('user'),
     google = resource.define('auth-google-oauth');
@@ -78,8 +78,8 @@ function strategy(callback) {
   //   credentials (in this case, an accessToken, refreshToken, and google
   //   profile), and invoke a callback with a user object.
   return callback(null, new GoogleStrategy({
-    clientID: config.clientID,
-    clientSecret: config.clientSecret,
+    clientID: config['auth-google-oauth'].clientID,
+    clientSecret: config['auth-google-oauth'].clientSecret,
     callbackURL: "http://localhost:8888/auth/google/callback",
     passReqToCallback: true
   },
